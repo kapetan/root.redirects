@@ -1,7 +1,7 @@
 {
 	"name": "root.redirects",
 	"version": "0.1.0",
-	"repository": "",
+	"repository": "https://github.com/kapetan/root.redirects",
 	"description": "Redirection for root",
 	"keywords": ["root", "redirect"],
 	"author": "Mirza Kapetanovic"
