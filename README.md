@@ -8,7 +8,7 @@ npm install root.redirects
 
 # Usage
 
-`response.redirect` sends back a redirect status code to the client, which by default is 302 (Found). It resolves any relative path to an absolute URL. To send an other status code, use the extra options parameter that the method takes.
+`response.redirect` sends back a redirect status code to the client, which by default is 302 (Found). It resolves any relative path to an absolute URL. To send any other status code, use the extra options parameter that the method takes.
 
 ```javascript
 var root = require('root');
@@ -30,7 +30,7 @@ app.get('/world', function(request, response) {
 });
 ```
 
-`request.stale` is used to send 304 (Not Modified) status codes. It expects an options object as first argument specifying either `etag`,  `lastModified` or both and a callback function as a last argument, which will be called if the client resource has become stale. If that is not case a 304 response is sent back with an empty body. In both situations the *ETag* and/or the *Last-Modified* header is set appropriately.
+`request.stale` is used to send 304 (Not Modified) status codes. It expects an options object as first argument specifying either `etag`,  `lastModified` or both and a callback function as a last argument, which will be called if the client resource has become stale. If that is not the case a 304 response is sent back with an empty body. In both situations the *ETag* and/or the *Last-Modified* header is set appropriately.
 
 ```javascript
 var serverStarted = new Date();
@@ -45,7 +45,7 @@ app.get('/resource', function(request, response) {
 });
 app.get('/resource_other', function(request, response) {
 	resquest.stale({ lastModified: serverStarted }, function {
-		// The resource not valid, do something
+		// The resource is not valid, do something
 		response.send((new Date()).toString());
 	});
 });
