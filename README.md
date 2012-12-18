@@ -46,6 +46,7 @@ app.get('/resource', function(request, response) {
 app.get('/resource_other', function(request, response) {
 	resquest.stale({ lastModified: serverStarted }, function {
 		// The resource not valid, do something
+		response.send((new Date()).toString());
 	});
 });
 ```
