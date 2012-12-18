@@ -52,10 +52,10 @@ module.exports = function(app) {
 			lastModified = lastModified instanceof Date ? lastModified.toUTCString() : lastModified.toString();
 		}
 
-		var isStale = (etag && (etag !== request.headers['if-none-match'])) ||
+		var isStale = (etag && (etag !== (request.headers['if-none-match'] || '').replace(/(^")|("$)/g, ''))) ||
 			(lastModified && (lastModified !== request.headers['if-modified-since']));
 
-		if(etag) response.setHeader('ETag', etag);
+		if(etag) response.setHeader('ETag', '"' + etag + '"');
 		if(lastModified) {
 			response.setHeader('Last-Modified', lastModified);
 			if(!response.getHeader('Date')) response.setHeader('Date', (new Date()).toUTCString());
