@@ -2,11 +2,11 @@ var crypto = require('crypto');
 
 var noop = function() {};
 var REDIRECT_CODES = {
-	movedPermanently: 301,
+	movedpermanently: 301,
 	found: 302,
-	seeOther: 303,
-	temporaryRedirect: 307,
-	permanentRedirect: 308
+	seeother: 303,
+	temporaryredirect: 307,
+	permanentredirect: 308
 };
 
 module.exports = function(app) {
@@ -16,7 +16,7 @@ module.exports = function(app) {
 		options.status = options.status || REDIRECT_CODES.found;
 
 		if(typeof options.status === 'string') {
-			options.status = REDIRECT_CODES[options.status];
+			options.status = REDIRECT_CODES[options.status.toLowerCase()];
 		}
 
 		if(!/^http(s)?:/.test(url)) {
