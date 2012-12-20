@@ -1,4 +1,5 @@
 var crypto = require('crypto');
+var querystring = require('querystring');
 
 var noop = function() {};
 var REDIRECT_CODES = {
@@ -11,6 +12,13 @@ var REDIRECT_CODES = {
 
 module.exports = function(app) {
 	app.use('response.redirect', function(url, options) {
+		if(!options && typeof url === 'object') {
+			var opt = url;
+
+			url = opt.path || opt.url;
+			options = opt;
+		}
+
 		options = options || {};
 
 		options.status = options.status || REDIRECT_CODES.found;
@@ -19,6 +27,9 @@ module.exports = function(app) {
 			options.status = REDIRECT_CODES[options.status.toLowerCase()];
 		}
 
+		if(options.query) {
+			url += '?' + querystring.stringify(options.query);
+		}
 		if(!/^http(s)?:/.test(url)) {
 			var https = !!this.request.connection.encrypted;
 			var protocol = https ? 'https' : 'http';
