@@ -26,7 +26,8 @@ app.get('/hello', function(request, response) {
 	response.redirect('/world', { status: 'seeOther' });
 });
 app.get('/world', function(request, response) {
-	response.redirect('http://foo.com');
+	// The query option appends a querystring at the end of the url
+	response.redirect('http://foo.com', { query: request.query });
 });
 ```
 
